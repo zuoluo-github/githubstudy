@@ -118,7 +118,7 @@ struct sockaddr_nl {
 		例如： 
 			用户态设置：			 nl_groups = 3
 			内核态组播发送： netlink_broadcast(hsk, skb, 0, 3, GFP_ATOMIC)
-		此时内核通过netlink_broadcast发送组播消息时会报错-3，表示没有socket在监听
+		此时内核通过netlink_broadcast发送组播消息时会报错-3，表示没有socket在监听（内核直接使用数字表述组号，不需要用掩码）
 		因为用户态在给nl_groups赋值时直接使用了组号3，但是该字段表示的是组号的掩码，所以需要将组号转换为组号的掩码
 		nl_groups = 0 表示不加入任何组（单播）
 		static int netlink_group_mask(int group){
